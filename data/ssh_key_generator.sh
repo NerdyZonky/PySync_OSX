@@ -18,7 +18,8 @@ if [ $choose = "j" ];then
 	echo -e "Generierung abgeschlossen!\n"
 	echo -e "Bereite Übertragung auf Remote Server vor..."
 	echo -e "Geben Sie den Netzwerknamen des Servers ein!\n"
-	read server 
+	read server
+	touch $server >> /Applications/PySync_OSX/data/server.pysync
 	echo -e "Geben Sie den Benutzernamen für $server ein"
 	read user
 	echo "Public Key wird auf Remoteserver übertragen..."
