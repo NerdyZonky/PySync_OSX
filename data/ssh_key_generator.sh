@@ -25,7 +25,7 @@ if [ $choose = "j" ];then
 	scp ~/.ssh/id_rsa.pub $user@$server:~
 	echo -e "Public Key Übertragung abgeschlossen!\n"
 	echo -e "Verbinde zu $server..."
-	ssh $user@$server 'bash -s' < /Applications/Pysync/data/TransferKey.sh
+	ssh $user@$server 'bash -s' < /Applications/Pysync_OSX/data/TransferKey.sh
 	echo -e " Keys wurden erfolgreich übertragen!\n"
 	
 
