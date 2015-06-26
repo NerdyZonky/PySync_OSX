@@ -5,7 +5,7 @@ class Menu:
 
     def GetLicence(self):
         print '''
-PySync ConfigTool Ver. 0.9
+PySync ConfigTool Ver. 0.9.5
 Copyright (C) 2015  Marco Schubert
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
