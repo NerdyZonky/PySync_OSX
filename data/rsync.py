@@ -14,8 +14,7 @@ class rsync:
     def ssh(self):
 
         import os
-        from osx_notifier import Notifier
-        Send = Notifier()
+
 
         if self.__modus == '-d':
             print('Default SSH-Sync wird gestartet')
