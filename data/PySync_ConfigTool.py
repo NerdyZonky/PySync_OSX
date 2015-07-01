@@ -4,15 +4,14 @@ __author__ = 'marco'
 import os
 import getpass
 import keyring
-from files import GetFiles
-from files import ReadFiles
-from files import WriteFiles
-from files import ReadFilesRsync
-from Output import Menu
+from files import *
+from Output import *
 
 
 #All information that PySync needs
 get = GetFiles()
+checkPath = CheckFiles()
+checkData = CheckFiles()
 directory = ReadFiles(get.GetDir())
 user = ReadFiles(get.GetUser())
 server = ReadFiles(get.GetServer())
@@ -21,11 +20,13 @@ proto = ReadFiles(get.GetProto())
 mountpoint = ReadFiles(get.GetMountpoint())
 
 
+#Check if config path exists
+checkPath.checkPath()
+#Check if config data exists
+checkData.checkData()
+
 #Getting menu
 menu = Menu()
-menu.GetLicence()
-
-
 
 while True:
 
@@ -40,6 +41,7 @@ while True:
         print"Möchten Sie das aktuelle Protokoll wirlich ändern?"
         print"j/n"
         choose = raw_input()
+
         if choose == "n":
             print"Beende Programm"
             exit()
