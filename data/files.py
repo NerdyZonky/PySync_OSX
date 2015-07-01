@@ -14,15 +14,6 @@ class GetFiles:
 
     def GetMode(self):
         return "mode.pysync"
-
-    def GetProto(self):
-        return "proto.pysync"
-
-    def GetMountpoint(self):
-        return "mountpoint.pysync"
-
-
-
 class ReadFiles:
 
     def __init__(self,file):
