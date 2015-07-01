@@ -1,64 +1,26 @@
 # -*- coding: utf-8 -*-
 __author__ = 'marco'
 
-import os
-
-path = os.environ['HOME'] + "/PySync/"
-
-
 class GetFiles:
 
-
     def GetDir(self):
-        dirpath = path + "dir.pysync"
-        return dirpath
+        return "dir.pysync"
 
     def GetUser(self):
-        userpath = path + "user.pysync"
-        return userpath
+        return "user.pysync"
 
     def GetServer(self):
-        serverpath = path + "server.pysync"
-        return serverpath
+        return "server.pysync"
 
     def GetMode(self):
-        modepath = path + "mode.pysync"
-        return modepath
+        return "mode.pysync"
 
     def GetProto(self):
-        protopath = path + "proto.pysync"
-        return protopath
+        return "proto.pysync"
 
     def GetMountpoint(self):
-        mountpointpath = path + "mountpoint.pysync"
-        return mountpointpath
+        return "mountpoint.pysync"
 
-class CheckFiles(GetFiles):
-
-    def checkPath(self):
-        if os.path.exists(path) == False:
-            os.system("mkdir %s" % path)
-
-    def checkData(self):
-
-        data = GetFiles()
-        if os.path.exists(data.GetDir() ) == False:
-            os.system("touch " + data.GetDir())
-
-        if os.path.exists(data.GetUser() ) == False:
-            os.system("touch " + data.GetUser())
-
-        if os.path.exists(data.GetServer())== False:
-            os.system("touch " + data.GetServer())
-
-        if os.path.exists(data.GetMode())== False:
-            os.system("touch " + data.GetMode())
-
-        if os.path.exists(data.GetProto())== False:
-            os.system("touch " + data.GetProto())
-
-        if os.path.exists(data.GetMountpoint())== False:
-            os.system("touch " + data.GetMountpoint())
 
 
 class ReadFiles:
