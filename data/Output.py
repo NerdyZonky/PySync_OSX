@@ -5,7 +5,7 @@ class Menu:
 
     def GetLicence(self):
         print '''
-PySync ConfigTool Ver. 0.9
+PySync ConfigTool Ver. 0.9.5
 Copyright (C) 2015  Marco Schubert
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License along with thi
         print "Was möchten Sie tun?\n"
 
         print "......................................."
+        print "0 = Setze Protokoll"
         print "1 = Setze Verzeichnisse"
         print "2 = Setze Benutzer- und Servernamen"
         print "3 = Setze Modus"
@@ -32,7 +33,17 @@ You should have received a copy of the GNU General Public License along with thi
 
     def ModeMenu(self):
         print'''
+Sie haben folgende Möglichkeiten:
+
 -d = Default Sync: Es werden keine Daten im Zielordner gelöscht
 -i = Inkrementeller Sync: Daten die im Quellordner gelöscht werden, werden auch im Zielordner gelöscht
 -s = Safe Sync: Daten die im Quellordner gelöscht werden, werden in einen gesonderten Ordner übertragen
+'''
+    def ProtoMenu(self):
+        print'''
+Sie haben folgende Möglichkeiten:
+
+smb = Windows Share
+afp = Apple Share
+nfs = Unix Share (noch nicht implementiert)
 '''
