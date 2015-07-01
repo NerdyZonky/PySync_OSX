@@ -2,6 +2,8 @@
 __author__ = 'marco'
 
 import os
+import getpass
+import keyring
 from files import GetFiles
 from files import ReadFiles
 from files import WriteFiles
@@ -9,14 +11,18 @@ from files import ReadFilesRsync
 from Output import Menu
 
 
+#All information that PySync needs
 get = GetFiles()
 directory = ReadFiles(get.GetDir())
 user = ReadFiles(get.GetUser())
 server = ReadFiles(get.GetServer())
 mode = ReadFiles(get.GetMode())
+proto = ReadFiles(get.GetProto())
+mountpoint = ReadFiles(get.GetMountpoint())
+
+
+#Getting menu
 menu = Menu()
-
-
 menu.GetLicence()
 
 
@@ -25,6 +31,37 @@ while True:
 
     menu.GetMainMenu()
     choose = raw_input()
+
+    if choose == "0":
+        print"Aktuelles Protokoll:"
+        print"....................."
+        proto.ReadFile()
+        print".....................\n"
+        print"Möchten Sie das aktuelle Protokoll wirlich ändern?"
+        print"j/n"
+        choose = raw_input()
+        if choose == "n":
+            print"Beende Programm"
+            exit()
+
+        if choose == "j":
+            while True:
+                menu.ProtoMenu()
+                proto = raw_input()
+                print"Neues Protokoll: %r \n" % proto
+                print"Ist das neue Protokoll korrekt?"
+                print"j/n/q"
+                choose = raw_input()
+                if choose == "j":
+                    WriteProto = WriteFiles(get.GetProto(),proto)
+                    WriteProto.WriteFile()
+                    print"Modus wurde geändert!"
+                    break
+                if choose == "n":
+                    continue
+
+                if choose == "q":
+                    break
 
     if choose == "1":
         print"Folgende Verzeichnisse sind aktuell gespeichert:"
@@ -88,6 +125,8 @@ while True:
         print"Was möchten Sie ändern?\n"
         print"1 = Username"
         print"2 = Servername"
+        print"3 = Passwort (nicht nötig für SSH)"
+        print"4 = Mountpoint (nicht nötig für SSH)"
 
         choose = raw_input()
         if choose == "1":
@@ -153,38 +192,89 @@ while True:
                     if choose == "q":
                         break
 
-    if choose == "3":
-            print"Aktueller Modus:"
+
+
+        if choose == "3":
+                print("Passwort:")
+                p = getpass.getpass()
+                print"Ist das neue Passwort korrekt?"
+                print"j/n/q"
+                choose = raw_input()
+                if choose == "j":
+                    keyring.set_password("PySync",user.ReadFile(),p)
+                    print("PASSWORT:" + keyring.get_password("PySync",user.ReadFile()))
+                    print"Passwort wurde geändert!"
+                    print("PASSWORT:" + keyring.get_password("PySync",user.ReadFile()))
+                    pass
+                if choose == "n":
+                    continue
+
+                if choose == "q":
+                   break
+
+        if choose == "4":
+
+            print"Aktueller Mountpoint:"
             print"....................."
-            mode.ReadFile()
+            mountpoint.ReadFile()
             print".....................\n"
 
-            print"Möchten Sie den Modus wirlich ändern?"
+            print"Möchten Sie den aktuellen Mountpoint wirlich ändern?"
             print"j/n"
             choose = raw_input()
             if choose == "n":
-                print"Beende Programm"
-                exit()
+                pass
 
             if choose =="j":
                 while True:
-                    print"Geben Sie den neuen Modus ein:"
-                    menu.ModeMenu()
-                    mode = raw_input()
-                    print"Neuer Modus: %r \n" % mode
-                    print"Ist der neue Modus korrekt?"
+                    print"Geben Sie den neuen Mountpoint ein:"
+                    mountpoint = raw_input()
+                    print"Neuer Mountpoint: %r \n" % mountpoint
+                    print"Ist der neue Mountpoint korrekt?"
                     print"j/n/q"
                     choose = raw_input()
                     if choose == "j":
-                        WriteMode = WriteFiles(get.GetMode(),mode)
-                        WriteMode.WriteFile()
-                        print"Modus wurde geändert!"
+                        WriteMountpoint = WriteFiles(get.GetMountpoint(),mountpoint)
+                        WriteMountpoint.WriteFile()
+                        print"Servername wurde geändert!"
                         break
                     if choose == "n":
                         continue
 
                     if choose == "q":
                         break
+
+    if choose == "3":
+        print"Aktueller Modus:"
+        print"....................."
+        mode.ReadFile()
+        print".....................\n"
+        print"Möchten Sie den Modus wirlich ändern?"
+        print"j/n"
+        choose = raw_input()
+        if choose == "n":
+            print"Beende Programm"
+            exit()
+
+        if choose =="j":
+            while True:
+                print"Geben Sie den neuen Modus ein:"
+                menu.ModeMenu()
+                mode = raw_input()
+                print"Neuer Modus: %r \n" % mode
+                print"Ist der neue Modus korrekt?"
+                print"j/n/q"
+                choose = raw_input()
+                if choose == "j":
+                    WriteMode = WriteFiles(get.GetMode(),mode)
+                    WriteMode.WriteFile()
+                    print"Modus wurde geändert!"
+                    break
+                if choose == "n":
+                    continue
+
+                if choose == "q":
+                    break
 
     if choose == "4":
         print"VERZEICHNISSE:"
@@ -207,7 +297,6 @@ while True:
     if choose == "5":
         swap = ReadFilesRsync(get.GetMode())
         swap2 = swap.ReadFile()
-
         fobj = open(get.GetMode(),"w")
         fobj.write("--try " + swap2 )
         fobj.close()
