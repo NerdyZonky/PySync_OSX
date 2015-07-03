@@ -40,7 +40,7 @@ class mount:
         print("Binde Netzlaufwerk ein...")
         message.SendMessage("Binde Netzlaufwerk ein...")
         os.system("umount " + volume)
-        os.system("rm -r " + volume)
+        #os.system("rm -r " + volume)
         os.system("mkdir " + volume)
 
 
